@@ -1,5 +1,6 @@
 #include "../header/Vector2p.hpp"
 #define VECTOR_WIDTH 2
+#define ARROW_LENGTH 10
 #include <cmath>
 #include "../header/UpsideDown.hpp"
 //moves by
@@ -36,9 +37,7 @@ Vector2p& Vector2p::setPosition(const sf::Vector2f& v) {
 #include <iostream>
 
 Vector2p& Vector2p::rotate(const float _angle) {
-	std::cout << "add_angle was " << add_angle;
 	add_angle+=_angle; //rotates clockwise
-	std::cout << " in rotate we add angle " << _angle << " and add becomes" << add_angle << ' ';
 	return *this;
 }
 Vector2p& Vector2p::setPosition(const float x, const float y) {
@@ -49,19 +48,32 @@ Vector2p& Vector2p::setPosition(const float x, const float y) {
 	return *this;
 }
 void Vector2p::draw(sf::RenderWindow& window, sf::Color c /* = Black */) {
-	std::cout << "after that add_angle = " << add_angle << " and we got: " << -90 /* rotation to OX */ + \
-	                   (atan2((v2.y-v1.y), (v2.x-v1.x)) * 180 / M_PI \
-	                    + add_angle) << std::endl;
 	upsidedown(*this, window);
-	sf::RectangleShape vector( //it is in vertex 1 1, top left corner
-		sf::Vector2f(VECTOR_WIDTH, sqrt_s(v1.x-v2.x, v1.y-v2.y)));
-	vector.setRotation(-90 /* rotation to OX */ +
-	                   (atan2((v2.y-v1.y), (v2.x-v1.x)) * 180 / M_PI
-	                    + add_angle));
+	float v_rotation = (atan2((v2.y-v1.y), (v2.x-v1.x)) * 180 / M_PI
+	                    + add_angle);
+	float v_length = sqrt_s(v1.x-v2.x, v1.y-v2.y);
+	sf::RectangleShape vector( //it is in vertex 0 0, top left corner
+		sf::Vector2f(VECTOR_WIDTH, v_length));
+	vector.setRotation(-90/* allign with OX */+v_rotation);
 	vector.setPosition(v1);
-	std::cout << vector.getRotation() << ' ' << add_angle << ' ' << -90 /* rotation to OX */ + \
-	                   (atan2((v2.y-v1.y), (v2.x-v1.x)) * 180 / M_PI \
-	                    + add_angle) << std::endl;
 	vector.setFillColor(c);
 	window.draw(vector);
+//	sf::RectangleShape arrow[2]{{sf::Vector2f()}, {sf::Vector2f()}};//({sf::Vector2f(1,1), sf::Vector2f(2,2)});//
+	sf::RectangleShape arrow[2] {
+		sf::RectangleShape(sf::Vector2f(VECTOR_WIDTH, ARROW_LENGTH)),
+		sf::RectangleShape(sf::Vector2f(VECTOR_WIDTH, ARROW_LENGTH)),
+	};
+	sf::Vector2f arr_pos = v1 + sf::Vector2f(v_length * cos(v_rotation*M_PI/180 - 0.012f),
+	                                     v_length * sin(v_rotation*M_PI/180 - 0.012f));
+	float arr_rotation = -90 + v_rotation + 180;
+	for(int i = 0; i < 2; i++) {
+		arrow[i].setFillColor(c);
+		arrow[i].setPosition(arr_pos);
+		arrow[i].rotate(30*(1-i*2) + arr_rotation);
+		window.draw(arrow[i]);
+	}
+
+
+
+
 }

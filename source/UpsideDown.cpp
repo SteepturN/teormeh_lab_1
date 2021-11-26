@@ -22,3 +22,7 @@ Vector2p& upsidedown(Vector2p& vect, sf::RenderWindow& window) {
 	vect.v2.y = size.y - vect.v2.y;
 	return vect;
 }
+sf::Vector2f&& upsidedown(sf::Vector2f&& vect, sf::RenderWindow& window) {
+	vect.y = window.getSize().y - vect.y;
+	return std::move(vect);
+}

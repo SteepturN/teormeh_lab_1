@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "../header/CoordinateSystem.hpp"
 
-#define COORDINATESYSTEM_LENGTH 500
+#define COORDINATESYSTEM_LENGTH 250
 struct CoordinateSystem {
 	CoordinateSystem(const float& x, const float& y,
 	                 const float& rotation_angle = 0);

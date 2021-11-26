@@ -4,6 +4,7 @@
 #include "../header/Movement.hpp"
 #include "../header/Vector2p.hpp"
 
+sf::Vector2f&& upsidedown(sf::Vector2f&&, sf::RenderWindow&);
 sf::Vertex&& upsidedown(sf::Vertex&& vert, sf::RenderWindow& window);
 sf::Vertex& upsidedown(sf::Vertex&, sf::RenderWindow&);
 Vector2p& upsidedown(Vector2p&, sf::RenderWindow&);

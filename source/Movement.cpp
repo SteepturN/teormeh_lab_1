@@ -51,12 +51,14 @@ void Movement::draw_point_acceleration_t_n_velocity(float time,
 	velocity.y *= VISUAL_KOEFF;
 	acceler_tan *= VISUAL_KOEFF*3;
 	acceler_norm *= VISUAL_KOEFF*3;
-	Vector2p(point_cur_pos, velocity+point_cur_pos).draw(window, sf::Color::Red);
+	Vector2p(point_cur_pos, velocity+point_cur_pos).
+		draw(window, sf::Color::Red);
 	Vector2p acceler_tan_v(velocity, acceler_tan);
 	acceler_tan_v.setPosition(point_cur_pos);
 	acceler_tan_v.draw(window, sf::Color::Green);
 
-	Vector2p acceler_norm_v(sf::Vector2f(velocity.y, -velocity.x), acceler_norm);
+	Vector2p acceler_norm_v(sf::Vector2f(velocity.y, -velocity.x),
+	                        acceler_norm);
 	//very intresting, that it will be directed exactly as curvature radius
 	acceler_norm_v.setPosition(point_cur_pos);
 	acceler_norm_v.draw(window, sf::Color::Blue);

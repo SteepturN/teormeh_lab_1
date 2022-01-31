@@ -5,13 +5,11 @@
 
 
 sf::Vertex&& upsidedown(sf::Vertex&& vert, sf::RenderWindow& window) {
-//	sf::Vertex needed_vert = vert;
 	sf::Vector2u size = window.getSize();
 	vert.position.y = size.y - vert.position.y;
 	return std::move(vert);
 }
 sf::Vertex& upsidedown(sf::Vertex& vert, sf::RenderWindow& window) {
-//	sf::Vertex needed_vert = vert;
 	sf::Vector2u size = window.getSize();
 	vert.position.y = size.y - vert.position.y;
 	return vert;

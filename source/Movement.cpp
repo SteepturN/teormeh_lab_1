@@ -24,9 +24,8 @@ void Movement::draw_coordinate_system(sf::RenderWindow& window) {
 void Movement::draw_point_velocity(float time, sf::RenderWindow& window, sf::Color c) {
 	sf::Vector2f velocity = this->pvelocity(time);
 	sf::Vector2f cur_pos = point_current_position(time);
-	Vector2p velocity_vector(cur_pos, cur_pos+velocity); //begin, end
+	Vector2p velocity_vector(cur_pos, cur_pos+velocity);
 	velocity_vector.draw(window, c);
-//	std::cout << "velocity = " << sqrt(pow(velocity.x,2) + pow(velocity.y,2)) << std::endl;
 }
 
 sf::Vector2f Movement::pvelocity(float time) {
@@ -36,16 +35,13 @@ sf::Vector2f Movement::pvelocity(float time) {
 	return sf::Vector2f(x_coord, y_coord);
 }
 void Movement::draw_point_acceleration_t_n_velocity(float time,
-                                               sf::RenderWindow& window) {
+                                                    sf::RenderWindow& window) {
 	float fi = _velocity * time / _radius;
 	sf::Vector2f velocity = this->pvelocity(time);
-	//std::cout << "velocity = " << velocity.x << " ," << velocity.y;
 	float acceler_tan = -pow(_velocity, 2) * sin(fi) /
 		( _radius * sqrt(2 + 2 * cos(fi)));
-	//std::cout << "\nacceler tan = " << acceler_tan;
 	float acceler_norm = sqrt(pow(pow(_velocity, 2) / _radius, 2) -
 	                          pow(acceler_tan, 2));
-	//std::cout << "\nacceler norm = " << acceler_norm << std::endl;
 	auto point_cur_pos = point_current_position(time);
 	velocity.x *= VISUAL_KOEFF;
 	velocity.y *= VISUAL_KOEFF;
@@ -59,7 +55,6 @@ void Movement::draw_point_acceleration_t_n_velocity(float time,
 
 	Vector2p acceler_norm_v(sf::Vector2f(velocity.y, -velocity.x),
 	                        acceler_norm);
-	//very intresting, that it will be directed exactly as curvature radius
 	acceler_norm_v.setPosition(point_cur_pos);
 	acceler_norm_v.draw(window, sf::Color::Blue);
 }

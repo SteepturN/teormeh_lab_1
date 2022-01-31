@@ -17,14 +17,20 @@ int main() {
 			upsidedown(sf::Vertex(wheel.point_current_position(time),
 			                      sf::Color::Black), window));
 	}
+	window.isOpen();
 	wheel.draw_coordinate_system(window);
 	wheel.draw_point_acceleration_t_n_velocity(print_vectors_time, window);
 	window.draw(cycloid);
-	window.isOpen();
-	sf::Event event;
 	window.display();
-	while(window.isOpen())
-		while(window.pollEvent(event))
+	sf::Event event;
+	while(window.isOpen()) {
+		while(window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) window.close();
+			wheel.draw_coordinate_system(window);
+			wheel.draw_point_acceleration_t_n_velocity(print_vectors_time, window);
+			window.draw(cycloid);
+			window.display();
+		}
+	}
 	return 0;
 }

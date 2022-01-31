@@ -21,6 +21,5 @@ private:
 	sf::Vector2f v1;
 	sf::Vector2f v2;
 	float add_angle;
-	//sf::RectangleShape vector;
 };
 #endif // VECTOR2P_H_
